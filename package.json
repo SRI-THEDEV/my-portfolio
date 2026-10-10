@@ -9,6 +9,7 @@
     "client": "npm run dev --prefix client",
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
     "seed": "node server/seed/seedData.js",
+    "generate:resume": "node generateResume.js",
     "build": "npm run build --prefix client"
   },
   "workspaces": [
@@ -24,6 +25,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "pdfkit": "^0.20.2"
   }
 }

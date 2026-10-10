@@ -80,6 +80,7 @@ create table if not exists public.profile (
   "whatIDoDescription" text,
   "ctaText" jsonb default '{"title": "LET''S BUILD SOMETHING AMAZING TOGETHER.", "description": "I''m open to new opportunities and exciting collaborations."}'::jsonb,
   socials jsonb default '{}'::jsonb,
+  "resumeUrl" text default '/Sri_Nataraj_Resume.pdf',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
@@ -242,7 +243,7 @@ insert into public.processes (step, title, description, "order")
 select '04', 'DELIVER', 'Testing, optimizing and launching with care.', 4 where not exists (select 1 from public.processes where step = '04');
 
 -- Profile Seed
-insert into public.profile (name, role, headline, tagline, "availableForProjects", "badgeInitials", "badgeText", phone, location, summary, education, stats, "whatIDoDescription", "ctaText", socials)
+insert into public.profile (name, role, headline, tagline, "availableForProjects", "badgeInitials", "badgeText", phone, location, summary, education, stats, "whatIDoDescription", "ctaText", socials, "resumeUrl")
 select
   'SRI NATARAJ Y',
   'CREATIVE DEVELOPER',
@@ -258,5 +259,6 @@ select
   '{"experience": "1+", "projectsDelivered": "15+", "happyClients": "10+", "technologies": "10+"}'::jsonb,
   'I design, build and ship modern websites and web applications that are fast, responsive and user-focused.',
   '{"title": "LET''S BUILD SOMETHING AMAZING TOGETHER.", "description": "I''m open to new opportunities and exciting collaborations."}'::jsonb,
-  '{"github": "https://github.com/SRI-THEDEV", "linkedin": "https://www.linkedin.com/in/sri-nataraj2006", "twitter": "https://x.com/SRINATARAJ39", "email": "srinataraj39@gmail.com", "phone": "+91 7639989629", "location": "Thanjavur, Tamil Nadu"}'::jsonb
+  '{"github": "https://github.com/SRI-THEDEV", "linkedin": "https://www.linkedin.com/in/sri-nataraj2006", "twitter": "https://x.com/SRINATARAJ39", "email": "srinataraj39@gmail.com", "phone": "+91 7639989629", "location": "Thanjavur, Tamil Nadu"}'::jsonb,
+  '/Sri_Nataraj_Resume.pdf'
 where not exists (select 1 from public.profile limit 1);

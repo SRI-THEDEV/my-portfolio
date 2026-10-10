@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin, Lock } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin, Lock, FileDown } from 'lucide-react';
 import { sendContactMessage } from '../services/api.js';
 import { LinkedinIcon, GithubIcon, XIcon } from './Icons.jsx';
 
@@ -119,6 +119,18 @@ export default function ContactSection({ profile, onMessageSent, isAdmin, onOpen
             <MapPin className="w-3.5 h-3.5 text-purple-400" />
             <span>Thanjavur, Tamil Nadu</span>
           </div>
+
+          <a
+            href={profile?.resumeUrl || '/Sri_Nataraj_Resume.pdf'}
+            download="Sri_Nataraj_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-purple-950/50 border border-purple-500/40 hover:border-purple-300 text-purple-200 hover:text-white text-xs font-mono-code transition-all hover:scale-105 shadow-sm"
+            title="Download Sri Nataraj's Resume (PDF)"
+          >
+            <FileDown className="w-3.5 h-3.5 text-purple-400" />
+            <span>Download Resume (PDF)</span>
+          </a>
         </div>
 
         {/* Contact Form Glass Card */}

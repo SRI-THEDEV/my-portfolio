@@ -170,7 +170,8 @@ export const initialProfile = {
     email: 'srinataraj39@gmail.com',
     phone: '+91 7639989629',
     location: 'Thanjavur, Tamil Nadu'
-  }
+  },
+  resumeUrl: '/Sri_Nataraj_Resume.pdf'
 };
 
 export async function seedDatabase() {

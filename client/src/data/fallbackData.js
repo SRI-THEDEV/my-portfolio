@@ -28,7 +28,8 @@ export const fallbackProfile = {
     email: 'srinataraj39@gmail.com',
     phone: '+91 7639989629',
     location: 'Thanjavur, Tamil Nadu'
-  }
+  },
+  resumeUrl: '/Sri_Nataraj_Resume.pdf'
 };
 
 export const fallbackProjects = [

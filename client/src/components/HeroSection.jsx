@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Sparkles, Terminal } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Terminal, FileDown } from 'lucide-react';
 
 export default function HeroSection({ profile, onOpenContact }) {
   const stats = profile?.stats || {
@@ -8,6 +8,8 @@ export default function HeroSection({ profile, onOpenContact }) {
     happyClients: '10+',
     technologies: '10+'
   };
+
+  const resumeHref = profile?.resumeUrl || '/Sri_Nataraj_Resume.pdf';
 
   return (
     <section id="hero" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
@@ -48,7 +50,7 @@ export default function HeroSection({ profile, onOpenContact }) {
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-wrap items-center gap-4 mt-2 mb-10">
+            <div className="flex flex-wrap items-center gap-3.5 mt-2 mb-10">
               <a
                 href="#projects"
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-sm flex items-center gap-2 shadow-lg shadow-purple-900/40 transition-all hover:scale-105 active:scale-95"
@@ -63,6 +65,17 @@ export default function HeroSection({ profile, onOpenContact }) {
                 <Sparkles className="w-4 h-4 text-purple-400" />
                 <span>LET'S TALK</span>
               </button>
+              <a
+                href={resumeHref}
+                download="Sri_Nataraj_Resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="px-5 py-3 rounded-full bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/40 hover:border-purple-300 text-purple-200 hover:text-white text-sm font-medium transition-all hover:shadow-lg hover:shadow-purple-900/40 hover:scale-105 active:scale-95 flex items-center gap-2 group backdrop-blur-sm"
+                title="Download Resume (PDF)"
+              >
+                <FileDown className="w-4 h-4 text-purple-400 group-hover:translate-y-0.5 transition-transform" />
+                <span>RESUME</span>
+              </a>
             </div>
 
             {/* Stats Row */}

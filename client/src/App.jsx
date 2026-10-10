@@ -135,6 +135,7 @@ export default function App() {
         <Navbar
           isAdmin={isAdmin}
           dbStatus={dbStatus}
+          resumeUrl={profile?.resumeUrl}
           onOpenAdmin={() => setAdminDrawerOpen(true)}
           onOpenAdminLogin={() => setAdminLoginModalOpen(true)}
           onOpenContact={handleOpenContact}

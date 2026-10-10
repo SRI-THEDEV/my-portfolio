@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Database, Send, Lock } from 'lucide-react';
+import { Menu, X, Database, Send, Lock, FileDown } from 'lucide-react';
 
-export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenContact, dbStatus }) {
+export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenContact, dbStatus, resumeUrl }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const resumeHref = resumeUrl || '/Sri_Nataraj_Resume.pdf';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +58,20 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
         </nav>
 
         {/* Action Controls */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Resume Download CTA */}
+          <a
+            href={resumeHref}
+            download="Sri_Nataraj_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            title="Download Sri Nataraj's Resume (PDF)"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#161224] hover:bg-[#201b34] border border-purple-500/30 hover:border-purple-400 text-xs font-mono-code text-purple-300 hover:text-white transition-all shadow-sm group"
+          >
+            <FileDown className="w-3.5 h-3.5 text-purple-400 group-hover:translate-y-0.5 transition-transform" />
+            <span>RESUME</span>
+          </a>
+
           {/* MERN Database Live Drawer Button - Visible ONLY if isAdmin */}
           {isAdmin ? (
             <button
@@ -151,9 +166,20 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
                 <Lock className="w-3.5 h-3.5" /> Admin Login
               </button>
             )}
+            <a
+              href={resumeHref}
+              download="Sri_Nataraj_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#161224] border border-purple-500/30 text-purple-200 hover:text-white text-xs font-mono-code transition-colors"
+            >
+              <FileDown className="w-3.5 h-3.5 text-purple-400" />
+              <span>DOWNLOAD RESUME (PDF)</span>
+            </a>
             <button
               onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
-              className="py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold"
+              className="py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-semibold"
             >
               GET IN TOUCH
             </button>
