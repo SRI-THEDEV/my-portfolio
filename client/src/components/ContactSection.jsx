@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin } from 'lucide-react';
 import { sendContactMessage } from '../services/api.js';
+import { LinkedinIcon, GithubIcon } from './Icons.jsx';
 
 export default function ContactSection({ profile, onMessageSent }) {
   const [formData, setFormData] = useState({
@@ -68,6 +69,26 @@ export default function ContactSection({ profile, onMessageSent }) {
 
         {/* Quick Personal Contact Info Pills */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
+          <a
+            href="https://www.linkedin.com/in/sri-nataraj2006"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 hover:border-purple-400 text-purple-200 text-xs font-mono-code transition-all hover:scale-105"
+          >
+            <LinkedinIcon className="w-3.5 h-3.5 text-purple-400" />
+            <span>LinkedIn: in/sri-nataraj2006</span>
+          </a>
+
+          <a
+            href="https://github.com/SRI-THEDEV"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 hover:border-purple-400 text-purple-200 text-xs font-mono-code transition-all hover:scale-105"
+          >
+            <GithubIcon className="w-3.5 h-3.5 text-purple-400" />
+            <span>GitHub: SRI-THEDEV</span>
+          </a>
+
           <a
             href="mailto:srinataraj39@gmail.com"
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 hover:border-purple-400 text-purple-200 text-xs font-mono-code transition-all hover:scale-105"
@@ -231,6 +252,9 @@ export default function ContactSection({ profile, onMessageSent }) {
           <div className="flex items-center gap-6 text-purple-300">
             <a href="https://github.com/SRI-THEDEV" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
               GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/sri-nataraj2006" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              LinkedIn
             </a>
             <a href="mailto:srinataraj39@gmail.com" className="hover:text-white transition-colors">
               Email

@@ -165,7 +165,7 @@ export const initialProfile = {
   },
   socials: {
     github: 'https://github.com/SRI-THEDEV',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/sri-nataraj2006',
     twitter: 'https://twitter.com',
     email: 'srinataraj39@gmail.com',
     phone: '+91 7639989629',
