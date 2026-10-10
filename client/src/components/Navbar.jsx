@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Database, Sparkles, Send, Lock } from 'lucide-react';
+import { Menu, X, Database, Send, Lock } from 'lucide-react';
 
 export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenContact, dbStatus }) {
   const [isScrolled, setIsScrolled] = useState(false);

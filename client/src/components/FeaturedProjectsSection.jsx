@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ExternalLink, Sparkles, Filter } from 'lucide-react';
-import { GithubIcon } from './Icons.jsx';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function FeaturedProjectsSection({ projects = [], onSelectProject, onOpenAdmin, isAdmin }) {
   const [filter, setFilter] = useState('ALL');
@@ -33,9 +32,9 @@ export default function FeaturedProjectsSection({ projects = [], onSelectProject
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             {/* Filter tags */}
-            <div className="flex items-center gap-1.5 p-1 bg-[#13101e] border border-purple-500/20 rounded-full text-xs font-mono-code">
+            <div className="flex items-center gap-1.5 p-1 bg-[#13101e] border border-purple-500/20 rounded-full text-xs font-mono-code overflow-x-auto max-w-full">
               {categories.map((cat) => (
                 <button
                   key={cat}
