@@ -20,13 +20,20 @@ import {
   setAdminKey,
   verifyAdminPasscode
 } from './services/api.js';
+import {
+  fallbackProfile,
+  fallbackProjects,
+  fallbackServices,
+  fallbackToolkit,
+  fallbackProcesses
+} from './data/fallbackData.js';
 
 export default function App() {
-  const [profile, setProfile] = useState(null);
-  const [projects, setProjects] = useState([]);
-  const [services, setServices] = useState([]);
-  const [toolkit, setToolkit] = useState([]);
-  const [processes, setProcesses] = useState([]);
+  const [profile, setProfile] = useState(fallbackProfile);
+  const [projects, setProjects] = useState(fallbackProjects);
+  const [services, setServices] = useState(fallbackServices);
+  const [toolkit, setToolkit] = useState(fallbackToolkit);
+  const [processes, setProcesses] = useState(fallbackProcesses);
   const [dbStatus, setDbStatus] = useState('checking');
 
   // UI States

@@ -1,14 +1,23 @@
 {
   "name": "creative-developer-mern-portfolio",
   "version": "1.0.0",
+  "type": "module",
   "description": "Modern MERN Stack Applications with React, Node.js & MongoDB",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "postinstall": "npm install --prefix client",
     "seed": "node server/seed/seedData.js",
     "build": "npm run build --prefix client"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
