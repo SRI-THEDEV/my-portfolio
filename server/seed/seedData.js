@@ -166,7 +166,7 @@ export const initialProfile = {
   socials: {
     github: 'https://github.com/SRI-THEDEV',
     linkedin: 'https://www.linkedin.com/in/sri-nataraj2006',
-    twitter: 'https://twitter.com',
+    twitter: 'https://x.com/SRINATARAJ39',
     email: 'srinataraj39@gmail.com',
     phone: '+91 7639989629',
     location: 'Thanjavur, Tamil Nadu'

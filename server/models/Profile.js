@@ -62,7 +62,7 @@ const profileSchema = new mongoose.Schema({
   socials: {
     github: { type: String, default: 'https://github.com/SRI-THEDEV' },
     linkedin: { type: String, default: 'https://www.linkedin.com/in/sri-nataraj2006' },
-    twitter: { type: String, default: 'https://twitter.com' },
+    twitter: { type: String, default: 'https://x.com/SRINATARAJ39' },
     email: { type: String, default: 'srinataraj39@gmail.com' },
     phone: { type: String, default: '+91 7639989629' },
     location: { type: String, default: 'Thanjavur, Tamil Nadu' }
