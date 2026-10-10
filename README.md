@@ -107,7 +107,7 @@ The server configuration is located in `server/.env`:
 PORT=5000
 NODE_ENV=development
 CLIENT_URL=http://localhost:5173
-ADMIN_KEY=sri2006
+ADMIN_KEY=********
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
 ```
