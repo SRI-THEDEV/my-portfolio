@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Database, Sparkles, Send } from 'lucide-react';
+import { Menu, X, Database, Sparkles, Send, Lock } from 'lucide-react';
 
-export default function Navbar({ onOpenAdmin, onOpenContact, dbStatus }) {
+export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenContact, dbStatus }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -57,16 +57,26 @@ export default function Navbar({ onOpenAdmin, onOpenContact, dbStatus }) {
 
         {/* Action Controls */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* MERN Database Live Drawer Button */}
-          <button
-            onClick={onOpenAdmin}
-            title="Open MongoDB live management drawer"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#171324] border border-purple-500/25 hover:border-purple-400 text-xs font-mono-code text-purple-300 hover:text-white transition-all shadow-sm group"
-          >
-            <Database className="w-3.5 h-3.5 text-purple-400 group-hover:animate-pulse" />
-            <span className="hidden lg:inline">MongoDB Panel</span>
-            <span className={`w-2 h-2 rounded-full ${dbStatus === 'connected' ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}`} />
-          </button>
+          {/* MERN Database Live Drawer Button - Visible ONLY if isAdmin */}
+          {isAdmin ? (
+            <button
+              onClick={onOpenAdmin}
+              title="Open MongoDB live management drawer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-950/70 border border-purple-500/40 hover:border-purple-400 text-xs font-mono-code text-purple-300 hover:text-white transition-all shadow-sm group animate-fade-in"
+            >
+              <Database className="w-3.5 h-3.5 text-purple-400 group-hover:animate-pulse" />
+              <span className="hidden lg:inline">Admin Panel</span>
+              <span className={`w-2 h-2 rounded-full ${dbStatus === 'connected' ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}`} />
+            </button>
+          ) : (
+            <button
+              onClick={onOpenAdminLogin}
+              title="Admin Login (Ctrl+Shift+A)"
+              className="p-1.5 rounded-full text-gray-500 hover:text-purple-300 hover:bg-[#171324] border border-transparent hover:border-purple-500/20 transition-all"
+            >
+              <Lock className="w-3.5 h-3.5" />
+            </button>
+          )}
 
           {/* Contact CTA */}
           <button
@@ -126,12 +136,21 @@ export default function Navbar({ onOpenAdmin, onOpenContact, dbStatus }) {
             // 05. CONTACT
           </a>
           <div className="pt-2 flex flex-col gap-2 border-t border-purple-900/40">
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenAdmin(); }}
-              className="flex items-center justify-center gap-2 py-2 rounded-lg bg-[#171324] border border-purple-500/25 text-purple-300 text-xs"
-            >
-              <Database className="w-3.5 h-3.5" /> MongoDB Live Panel
-            </button>
+            {isAdmin ? (
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenAdmin(); }}
+                className="flex items-center justify-center gap-2 py-2 rounded-lg bg-purple-950/70 border border-purple-500/40 text-purple-300 text-xs"
+              >
+                <Database className="w-3.5 h-3.5" /> MongoDB Live Panel [Admin]
+              </button>
+            ) : (
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenAdminLogin(); }}
+                className="flex items-center justify-center gap-2 py-2 rounded-lg bg-[#171324] border border-purple-500/20 text-gray-400 hover:text-purple-300 text-xs"
+              >
+                <Lock className="w-3.5 h-3.5" /> Admin Login
+              </button>
+            )}
             <button
               onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
               className="py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold"

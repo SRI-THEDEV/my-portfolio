@@ -7,6 +7,7 @@ import BottomGridSection from './components/BottomGridSection.jsx';
 import ContactSection from './components/ContactSection.jsx';
 import ProjectModal from './components/ProjectModal.jsx';
 import AdminDrawer from './components/AdminDrawer.jsx';
+import AdminLoginModal from './components/AdminLoginModal.jsx';
 
 import {
   fetchProfile,
@@ -14,7 +15,10 @@ import {
   fetchServices,
   fetchToolkit,
   fetchProcesses,
-  checkHealth
+  checkHealth,
+  getAdminKey,
+  setAdminKey,
+  verifyAdminPasscode
 } from './services/api.js';
 
 export default function App() {
@@ -28,6 +32,37 @@ export default function App() {
   // UI States
   const [selectedProject, setSelectedProject] = useState(null);
   const [adminDrawerOpen, setAdminDrawerOpen] = useState(false);
+  const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(() => Boolean(getAdminKey()));
+
+  // Verify stored admin key on startup
+  useEffect(() => {
+    const key = getAdminKey();
+    if (key) {
+      verifyAdminPasscode(key)
+        .then(() => setIsAdmin(true))
+        .catch(() => {
+          setAdminKey('');
+          setIsAdmin(false);
+        });
+    }
+  }, []);
+
+  // Keyboard shortcut Ctrl+Shift+A for Admin toggle
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        if (isAdmin) {
+          setAdminDrawerOpen(prev => !prev);
+        } else {
+          setAdminLoginModalOpen(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isAdmin]);
 
   // Fetch initial data from Express + MongoDB backend
   useEffect(() => {
@@ -72,6 +107,12 @@ export default function App() {
     if (selectedProject?._id === id) setSelectedProject(null);
   };
 
+  const handleLogout = () => {
+    setAdminKey('');
+    setIsAdmin(false);
+    setAdminDrawerOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#09080e] text-[#dedce6] relative selection:bg-purple-600 selection:text-white">
       
@@ -85,8 +126,10 @@ export default function App() {
       <div className="relative z-10 flex flex-col">
         {/* Navigation Bar */}
         <Navbar
+          isAdmin={isAdmin}
           dbStatus={dbStatus}
           onOpenAdmin={() => setAdminDrawerOpen(true)}
+          onOpenAdminLogin={() => setAdminLoginModalOpen(true)}
           onOpenContact={handleOpenContact}
         />
 
@@ -104,6 +147,7 @@ export default function App() {
         {/* Featured Projects Section */}
         <FeaturedProjectsSection
           projects={projects}
+          isAdmin={isAdmin}
           onSelectProject={(proj) => setSelectedProject(proj)}
           onOpenAdmin={() => setAdminDrawerOpen(true)}
         />
@@ -118,6 +162,9 @@ export default function App() {
         {/* Contact & Connect Section */}
         <ContactSection
           profile={profile}
+          isAdmin={isAdmin}
+          onOpenAdmin={() => setAdminDrawerOpen(true)}
+          onOpenAdminLogin={() => setAdminLoginModalOpen(true)}
           onMessageSent={() => {
             // Can trigger a refresh or toast notification
           }}
@@ -139,6 +186,17 @@ export default function App() {
         projects={projects}
         onProjectCreated={handleProjectCreated}
         onProjectDeleted={handleProjectDeleted}
+        onLogout={handleLogout}
+      />
+
+      {/* Admin Passcode Authentication Modal */}
+      <AdminLoginModal
+        isOpen={adminLoginModalOpen}
+        onClose={() => setAdminLoginModalOpen(false)}
+        onLoginSuccess={() => {
+          setIsAdmin(true);
+          setAdminDrawerOpen(true);
+        }}
       />
 
     </div>

@@ -138,6 +138,21 @@ This starts:
 
 ## 🛠️ Testing & Seeding
 
+---
+
+## 🔐 Admin Access & Security
+
+The MongoDB Live Panel and private database controls are restricted to **Admin only**:
+- **Default Development Passcode**: `admin123` (customizable via `ADMIN_KEY` in `server/.env`)
+- **How to Open**:
+  - Click the **Lock icon** in the top Navbar or **Admin** link in the footer.
+  - Or press the keyboard shortcut **`Ctrl + Shift + A`** (or `Cmd + Shift + A` on Mac).
+- **Protected Actions**:
+  - Viewing received contact messages (`GET /api/messages` -> 401 without key).
+  - Deleting messages (`DELETE /api/messages/:id` -> 401 without key).
+  - Adding or deleting projects (`POST /api/projects`, `DELETE /api/projects/:id`).
+  - For normal visitors, the **MongoDB Panel** button and **+ Add Project** button are completely hidden.
+
 To manually re-seed MongoDB with initial showcase data:
 ```bash
 npm run seed

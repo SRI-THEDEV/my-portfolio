@@ -6,16 +6,17 @@ import {
   updateProject,
   deleteProject
 } from '../controllers/projectController.js';
+import { requireAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 router.route('/')
-  .get(getProjects)
-  .post(createProject);
+  .get(getProjects) // Public for visitors
+  .post(requireAdmin, createProject); // Admin only
 
 router.route('/:id')
-  .get(getProjectById)
-  .put(updateProject)
-  .delete(deleteProject);
+  .get(getProjectById) // Public for visitors
+  .put(requireAdmin, updateProject) // Admin only
+  .delete(requireAdmin, deleteProject); // Admin only
 
 export default router;

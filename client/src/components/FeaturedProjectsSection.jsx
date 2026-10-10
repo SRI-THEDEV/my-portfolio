@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUpRight, ExternalLink, Sparkles, Filter } from 'lucide-react';
 import { GithubIcon } from './Icons.jsx';
 
-export default function FeaturedProjectsSection({ projects = [], onSelectProject, onOpenAdmin }) {
+export default function FeaturedProjectsSection({ projects = [], onSelectProject, onOpenAdmin, isAdmin }) {
   const [filter, setFilter] = useState('ALL');
 
   const categories = ['ALL', 'WEB DEV', 'DASHBOARD', 'LANDING PAGE'];
@@ -51,12 +51,14 @@ export default function FeaturedProjectsSection({ projects = [], onSelectProject
               ))}
             </div>
 
-            <button
-              onClick={onOpenAdmin}
-              className="text-xs font-mono-code text-purple-300 hover:text-white flex items-center gap-1 hover:underline ml-2"
-            >
-              <span>+ Add Project</span>
-            </button>
+            {isAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="text-xs font-mono-code text-purple-300 hover:text-white flex items-center gap-1 hover:underline ml-2"
+              >
+                <span>+ Add Project</span>
+              </button>
+            )}
           </div>
         </div>
 

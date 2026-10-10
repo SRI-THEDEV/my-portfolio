@@ -8,6 +8,7 @@ import projectRoutes from './routes/projectRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 import { seedDatabase } from './seed/seedData.js';
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -47,18 +49,40 @@ app.use((req, res) => {
 });
 
 // Connect to MongoDB & Start Server
+const startServer = () => {
+  const server = app.listen(PORT, () => {
+    console.log(`[Server] Creative Developer Portfolio API running on http://localhost:${PORT}`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`\n[Server Error] Port ${PORT} is already in use.`);
+      console.error(`Kill the occupying process with: Stop-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess -Force\n`);
+    } else {
+      console.error('[Server Error]', err);
+    }
+  });
+
+  const shutdown = () => {
+    server.close(() => {
+      mongoose.connection.close(false);
+      process.exit(0);
+    });
+  };
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
+  return server;
+};
+
 mongoose.connect(MONGO_URI)
   .then(async () => {
     console.log(`[MongoDB] Connected successfully to database: ${MONGO_URI}`);
     await seedDatabase();
-    app.listen(PORT, () => {
-      console.log(`[Server] Creative Developer Portfolio API running on http://localhost:${PORT}`);
-    });
+    startServer();
   })
   .catch((err) => {
     console.error('[MongoDB] Connection error:', err.message);
     // Still start server so API can return clear errors or fallback
-    app.listen(PORT, () => {
-      console.log(`[Server] Running on port ${PORT} (MongoDB offline, check service)`);
-    });
+    console.log(`[Server] Running on port ${PORT} (MongoDB offline, check service)`);
+    startServer();
   });

@@ -2,6 +2,38 @@
 
 const API_BASE = '/api';
 
+export const getAdminKey = () => {
+  return localStorage.getItem('eportfolio_admin_key') || '';
+};
+
+export const setAdminKey = (key) => {
+  if (key) {
+    localStorage.setItem('eportfolio_admin_key', key);
+  } else {
+    localStorage.removeItem('eportfolio_admin_key');
+  }
+};
+
+const getAdminHeaders = () => {
+  return {
+    'Content-Type': 'application/json',
+    'x-admin-key': getAdminKey()
+  };
+};
+
+export const verifyAdminPasscode = async (passcode) => {
+  const res = await fetch(`${API_BASE}/admin/verify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key: passcode })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || 'Invalid admin passcode');
+  }
+  return data;
+};
+
 export const fetchProfile = async () => {
   try {
     const res = await fetch(`${API_BASE}/profile`);
@@ -29,7 +61,7 @@ export const fetchProjects = async () => {
 export const createProject = async (projectData) => {
   const res = await fetch(`${API_BASE}/projects`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getAdminHeaders(),
     body: JSON.stringify(projectData)
   });
   if (!res.ok) {
@@ -41,7 +73,8 @@ export const createProject = async (projectData) => {
 
 export const deleteProject = async (id) => {
   const res = await fetch(`${API_BASE}/projects/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: getAdminHeaders()
   });
   if (!res.ok) throw new Error('Failed to delete project');
   return await res.json();
@@ -97,7 +130,9 @@ export const sendContactMessage = async (messageData) => {
 };
 
 export const fetchMessages = async () => {
-  const res = await fetch(`${API_BASE}/messages`);
+  const res = await fetch(`${API_BASE}/messages`, {
+    headers: getAdminHeaders()
+  });
   if (!res.ok) throw new Error('Failed to fetch messages');
   const json = await res.json();
   return json.data || [];
@@ -105,7 +140,8 @@ export const fetchMessages = async () => {
 
 export const deleteMessage = async (id) => {
   const res = await fetch(`${API_BASE}/messages/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: getAdminHeaders()
   });
   if (!res.ok) throw new Error('Failed to delete message');
   return await res.json();

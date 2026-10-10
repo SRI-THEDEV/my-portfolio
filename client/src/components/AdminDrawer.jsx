@@ -9,7 +9,9 @@ import {
   RefreshCw, 
   Server, 
   FolderGit2, 
-  ExternalLink 
+  ExternalLink,
+  LogOut,
+  ShieldCheck
 } from 'lucide-react';
 import { 
   fetchMessages, 
@@ -19,7 +21,7 @@ import {
   checkHealth 
 } from '../services/api.js';
 
-export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreated, onProjectDeleted }) {
+export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreated, onProjectDeleted, onLogout }) {
   const [activeTab, setActiveTab] = useState('messages');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -149,6 +151,16 @@ export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreate
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             </button>
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                title="Log out of Admin Mode"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/30 text-xs font-mono-code transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            )}
             <button
               onClick={onClose}
               className="p-2 rounded-lg bg-[#19152b] hover:bg-[#231e3d] text-gray-400 hover:text-white border border-purple-500/20"

@@ -5,17 +5,18 @@ import {
   markAsRead,
   deleteMessage
 } from '../controllers/messageController.js';
+import { requireAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 router.route('/')
-  .post(createMessage)
-  .get(getMessages);
+  .post(createMessage) // Public for visitors sending contact inquiries
+  .get(requireAdmin, getMessages); // Admin only
 
 router.route('/:id/read')
-  .patch(markAsRead);
+  .patch(requireAdmin, markAsRead);
 
 router.route('/:id')
-  .delete(deleteMessage);
+  .delete(requireAdmin, deleteMessage);
 
 export default router;

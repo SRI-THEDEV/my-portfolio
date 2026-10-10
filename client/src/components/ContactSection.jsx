@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin, Lock } from 'lucide-react';
 import { sendContactMessage } from '../services/api.js';
 import { LinkedinIcon, GithubIcon, XIcon } from './Icons.jsx';
 
-export default function ContactSection({ profile, onMessageSent }) {
+export default function ContactSection({ profile, onMessageSent, isAdmin, onOpenAdminLogin, onOpenAdmin }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -259,7 +259,7 @@ export default function ContactSection({ profile, onMessageSent }) {
           <div>
             &copy; {new Date().getFullYear()} SRI NATARAJ Y. Built with React 19, Node.js, Express & MongoDB.
           </div>
-          <div className="flex items-center gap-6 text-purple-300">
+          <div className="flex flex-wrap items-center gap-6 text-purple-300">
             <a href="https://github.com/SRI-THEDEV" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
               GitHub
             </a>
@@ -275,6 +275,24 @@ export default function ContactSection({ profile, onMessageSent }) {
             <a href="tel:+917639989629" className="hover:text-white transition-colors">
               Phone
             </a>
+            {isAdmin ? (
+              <button 
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-purple-950/70 border border-purple-500/40 text-purple-300 hover:text-white"
+              >
+                <Lock className="w-3 h-3 text-emerald-400" />
+                <span>Admin Mode</span>
+              </button>
+            ) : (
+              <button 
+                onClick={onOpenAdminLogin}
+                title="Admin Access (Ctrl+Shift+A)"
+                className="hover:text-purple-300 transition-colors inline-flex items-center gap-1 opacity-70 hover:opacity-100"
+              >
+                <Lock className="w-3 h-3" />
+                <span>Admin</span>
+              </button>
+            )}
             <span className="text-gray-500">
               Thanjavur, Tamil Nadu
             </span>
