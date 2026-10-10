@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #09080e;
+    --card-dark: #12101a;
+    --border-dark: #221d30;
+    --purple-primary: #8b5cf6;
+    --purple-light: #c084fc;
+    --purple-glow: rgba(168, 85, 247, 0.35);
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: #dedce6;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-syne {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .font-script {
+    font-family: 'Caveat', cursive;
+  }
+
+  .font-mono-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Glass & Card styles */
+.glass-panel {
+  background: rgba(18, 16, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(139, 92, 246, 0.25);
+}
+
+/* Subtle glow radial background */
+.radial-glow {
+  background: radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.15) 0%, rgba(9, 8, 14, 0) 70%);
+}
+
+.radial-glow-purple {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 70%);
+}
+
+/* Rotating badge animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09080e;
+}
+::-webkit-scrollbar-thumb {
+  background: #252037;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #493b68;
+}
