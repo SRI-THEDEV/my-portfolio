@@ -19,10 +19,15 @@ export const updateProfile = async (req, res) => {
     if (!profile) {
       profile = await Profile.create(req.body);
     } else {
-      profile = await Profile.findByIdAndUpdate(profile._id, req.body, {
-        new: true,
-        runValidators: true
-      });
+      if (req.body.stats) {
+        profile.stats = {
+          ...profile.stats.toObject(),
+          ...req.body.stats
+        };
+        delete req.body.stats;
+      }
+      Object.assign(profile, req.body);
+      await profile.save();
     }
     res.status(200).json({ success: true, data: profile });
   } catch (error) {

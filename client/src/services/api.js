@@ -46,6 +46,19 @@ export const fetchProfile = async () => {
   }
 };
 
+export const updateProfile = async (profileData) => {
+  const res = await fetch(`${API_BASE}/profile`, {
+    method: 'PUT',
+    headers: getAdminHeaders(),
+    body: JSON.stringify(profileData)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || 'Failed to update profile');
+  }
+  return await res.json();
+};
+
 export const fetchProjects = async () => {
   try {
     const res = await fetch(`${API_BASE}/projects`);

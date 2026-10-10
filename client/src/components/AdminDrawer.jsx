@@ -7,25 +7,58 @@ import {
   Trash2, 
   CheckCircle, 
   RefreshCw, 
-  Server, 
   FolderGit2, 
-  ExternalLink,
   LogOut,
-  ShieldCheck
+  BarChart2,
+  Sparkles,
+  Save,
+  Loader2
 } from 'lucide-react';
 import { 
   fetchMessages, 
   deleteMessage, 
   createProject, 
   deleteProject, 
-  checkHealth 
+  checkHealth,
+  fetchProfile,
+  updateProfile
 } from '../services/api.js';
 
-export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreated, onProjectDeleted, onLogout }) {
-  const [activeTab, setActiveTab] = useState('messages');
+export default function AdminDrawer({ 
+  isOpen, 
+  onClose, 
+  projects, 
+  profile, 
+  onProfileUpdated, 
+  onProjectCreated, 
+  onProjectDeleted, 
+  onLogout 
+}) {
+  const [activeTab, setActiveTab] = useState('stats');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [serverHealth, setServerHealth] = useState(null);
+
+  // Hero Section Stats State
+  const [statsForm, setStatsForm] = useState({
+    experience: profile?.stats?.experience || '1+',
+    projectsDelivered: profile?.stats?.projectsDelivered || '15+',
+    happyClients: profile?.stats?.happyClients || '10+',
+    technologies: profile?.stats?.technologies || '10+'
+  });
+  const [statsSaving, setStatsSaving] = useState(false);
+
+  // Sync stats when profile prop updates
+  useEffect(() => {
+    if (profile?.stats) {
+      setStatsForm({
+        experience: profile.stats.experience || '1+',
+        projectsDelivered: profile.stats.projectsDelivered || '15+',
+        happyClients: profile.stats.happyClients || '10+',
+        technologies: profile.stats.technologies || '10+'
+      });
+    }
+  }, [profile]);
 
   // New project state
   const [newProject, setNewProject] = useState({
@@ -43,16 +76,43 @@ export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreate
   const loadData = async () => {
     try {
       setLoading(true);
-      const [msgs, health] = await Promise.all([
+      const [msgs, health, prof] = await Promise.all([
         fetchMessages().catch(() => []),
-        checkHealth().catch(() => null)
+        checkHealth().catch(() => null),
+        fetchProfile().catch(() => null)
       ]);
       setMessages(msgs);
       setServerHealth(health);
+      if (prof?.stats) {
+        setStatsForm({
+          experience: prof.stats.experience || '1+',
+          projectsDelivered: prof.stats.projectsDelivered || '15+',
+          happyClients: prof.stats.happyClients || '10+',
+          technologies: prof.stats.technologies || '10+'
+        });
+        if (onProfileUpdated) onProfileUpdated(prof);
+      }
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveStats = async (e) => {
+    e.preventDefault();
+    try {
+      setStatsSaving(true);
+      const res = await updateProfile({ stats: statsForm });
+      if (res?.data && onProfileUpdated) {
+        onProfileUpdated(res.data);
+      }
+      setActionNotice('Hero stats updated and saved to MongoDB!');
+      setTimeout(() => setActionNotice(null), 3500);
+    } catch (err) {
+      alert('Failed to update stats: ' + err.message);
+    } finally {
+      setStatsSaving(false);
     }
   };
 
@@ -193,10 +253,22 @@ export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreate
         )}
 
         {/* Tabs */}
-        <div className="px-6 pt-4 border-b border-purple-500/10 flex gap-4 text-xs font-mono-code">
+        <div className="px-6 pt-4 border-b border-purple-500/10 flex gap-4 text-xs font-mono-code overflow-x-auto">
+          <button
+            onClick={() => setActiveTab('stats')}
+            className={`pb-3 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'stats'
+                ? 'border-purple-500 text-purple-300 font-bold'
+                : 'border-transparent text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            <BarChart2 className="w-4 h-4 text-purple-400" />
+            <span>Hero Stats</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('messages')}
-            className={`pb-3 border-b-2 transition-all flex items-center gap-2 ${
+            className={`pb-3 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'messages'
                 ? 'border-purple-500 text-purple-300 font-bold'
                 : 'border-transparent text-gray-400 hover:text-gray-200'
@@ -208,7 +280,7 @@ export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreate
 
           <button
             onClick={() => setActiveTab('projects')}
-            className={`pb-3 border-b-2 transition-all flex items-center gap-2 ${
+            className={`pb-3 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'projects'
                 ? 'border-purple-500 text-purple-300 font-bold'
                 : 'border-transparent text-gray-400 hover:text-gray-200'
@@ -220,20 +292,158 @@ export default function AdminDrawer({ isOpen, onClose, projects, onProjectCreate
 
           <button
             onClick={() => setActiveTab('add')}
-            className={`pb-3 border-b-2 transition-all flex items-center gap-2 ${
+            className={`pb-3 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'add'
                 ? 'border-purple-500 text-purple-300 font-bold'
                 : 'border-transparent text-gray-400 hover:text-gray-200'
             }`}
           >
             <Plus className="w-4 h-4" />
-            <span>+ Add to DB</span>
+            <span>+ Add Project</span>
           </button>
         </div>
 
         {/* Tab Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           
+          {/* TAB: HERO STATS */}
+          {activeTab === 'stats' && (
+            <form onSubmit={handleSaveStats} className="space-y-5">
+              <div className="p-4 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs text-left">
+                <div className="flex items-center gap-2 text-purple-300 font-syne font-bold mb-1">
+                  <Sparkles className="w-4 h-4 text-purple-400" />
+                  <span>Hero Counter Metrics</span>
+                </div>
+                <p className="text-gray-400 text-[11px] leading-relaxed">
+                  Update the live statistics displayed directly on your Hero Section. Changes are saved directly into MongoDB and immediately update the live website.
+                </p>
+              </div>
+
+              {/* Live Preview Cards Grid */}
+              <div className="text-left">
+                <label className="block text-[11px] font-mono-code uppercase text-gray-400 mb-2 tracking-wider">
+                  Live Preview on Hero Section
+                </label>
+                <div className="grid grid-cols-2 gap-2.5 p-3 rounded-xl bg-[#0a0812] border border-purple-500/20">
+                  <div className="p-2.5 rounded-lg bg-[#141022] border border-purple-500/10 text-left">
+                    <div className="font-syne font-black text-xl text-purple-300">
+                      {statsForm.experience || '—'}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-gray-400 uppercase tracking-wider mt-0.5">
+                      YEARS EXPERIENCE
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-[#141022] border border-purple-500/10 text-left">
+                    <div className="font-syne font-black text-xl text-purple-300">
+                      {statsForm.projectsDelivered || '—'}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-gray-400 uppercase tracking-wider mt-0.5">
+                      PROJECTS DELIVERED
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-[#141022] border border-purple-500/10 text-left">
+                    <div className="font-syne font-black text-xl text-purple-300">
+                      {statsForm.happyClients || '—'}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-gray-400 uppercase tracking-wider mt-0.5">
+                      HAPPY CLIENTS
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-[#141022] border border-purple-500/10 text-left">
+                    <div className="font-syne font-black text-xl text-purple-300">
+                      {statsForm.technologies || '—'}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-gray-400 uppercase tracking-wider mt-0.5">
+                      TECHNOLOGIES
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 Editable Input Fields */}
+              <div className="space-y-3.5 text-left">
+                <div>
+                  <label className="block text-xs font-mono-code text-gray-300 uppercase tracking-wide mb-1.5 flex items-center justify-between">
+                    <span>Years Experience</span>
+                    <span className="text-[10px] text-purple-400 lowercase font-mono">e.g. 1+, 2+, 4+</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={statsForm.experience}
+                    onChange={(e) => setStatsForm({ ...statsForm, experience: e.target.value })}
+                    placeholder="e.g. 1+"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#161224] border border-purple-500/25 focus:border-purple-400 focus:outline-none text-white text-xs font-mono-code transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono-code text-gray-300 uppercase tracking-wide mb-1.5 flex items-center justify-between">
+                    <span>Projects Delivered</span>
+                    <span className="text-[10px] text-purple-400 lowercase font-mono">e.g. 15+, 25+, 40+</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={statsForm.projectsDelivered}
+                    onChange={(e) => setStatsForm({ ...statsForm, projectsDelivered: e.target.value })}
+                    placeholder="e.g. 15+"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#161224] border border-purple-500/25 focus:border-purple-400 focus:outline-none text-white text-xs font-mono-code transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono-code text-gray-300 uppercase tracking-wide mb-1.5 flex items-center justify-between">
+                    <span>Happy Clients</span>
+                    <span className="text-[10px] text-purple-400 lowercase font-mono">e.g. 10+, 20+, 25+</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={statsForm.happyClients}
+                    onChange={(e) => setStatsForm({ ...statsForm, happyClients: e.target.value })}
+                    placeholder="e.g. 10+"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#161224] border border-purple-500/25 focus:border-purple-400 focus:outline-none text-white text-xs font-mono-code transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono-code text-gray-300 uppercase tracking-wide mb-1.5 flex items-center justify-between">
+                    <span>Technologies</span>
+                    <span className="text-[10px] text-purple-400 lowercase font-mono">e.g. 10+, 12+, 15+</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={statsForm.technologies}
+                    onChange={(e) => setStatsForm({ ...statsForm, technologies: e.target.value })}
+                    placeholder="e.g. 10+"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#161224] border border-purple-500/25 focus:border-purple-400 focus:outline-none text-white text-xs font-mono-code transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={statsSaving}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-syne font-bold text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-purple-900/40 flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+              >
+                {statsSaving ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Saving to MongoDB...</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4" />
+                    <span>Save Stats into MongoDB</span>
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+
           {/* TAB: MESSAGES */}
           {activeTab === 'messages' && (
             <div className="space-y-4">

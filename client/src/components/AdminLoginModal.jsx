@@ -93,7 +93,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
               </button>
             </div>
             <p className="mt-2 text-[10px] text-gray-500 font-mono-code">
-              Default development passcode: <code className="text-purple-400 font-bold">admin123</code>
+              Configured in your server <code className="text-purple-400 font-semibold">.env</code> (ADMIN_KEY)
             </p>
           </div>
 

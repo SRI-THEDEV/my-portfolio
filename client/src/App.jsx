@@ -184,6 +184,8 @@ export default function App() {
         isOpen={adminDrawerOpen}
         onClose={() => setAdminDrawerOpen(false)}
         projects={projects}
+        profile={profile}
+        onProfileUpdated={(updatedProfile) => setProfile(updatedProfile)}
         onProjectCreated={handleProjectCreated}
         onProjectDeleted={handleProjectDeleted}
         onLogout={handleLogout}

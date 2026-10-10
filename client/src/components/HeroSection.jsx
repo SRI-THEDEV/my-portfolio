@@ -3,9 +3,9 @@ import { ArrowUpRight, Sparkles, Terminal } from 'lucide-react';
 
 export default function HeroSection({ profile, onOpenContact }) {
   const stats = profile?.stats || {
-    experience: '4+',
-    projectsDelivered: '40+',
-    happyClients: '25+',
+    experience: '1+',
+    projectsDelivered: '15+',
+    happyClients: '10+',
     technologies: '10+'
   };
 
