@@ -93,15 +93,23 @@ d:\E-portfolio\
 
 ### 1. Prerequisites
 - **Node.js** v18+ (tested on Node v24)
-- **MongoDB** running locally on port 27017 or a MongoDB Atlas URI
+- **Supabase** (free cloud PostgreSQL)
 
-### 2. Environment Setup
+### 2. Supabase Database Setup
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Go to **SQL Editor** in your Supabase project dashboard.
+3. Open [`supabase_schema.sql`](file:///d:/E-portfolio/supabase_schema.sql), copy its full content, paste into the SQL Editor, and click **Run**.
+4. Get your Project URL and Anon Key from **Project Settings > API**.
+
+### 3. Environment Setup
 The server configuration is located in `server/.env`:
 ```env
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/eportfolio_db
 NODE_ENV=development
 CLIENT_URL=http://localhost:5173
+ADMIN_KEY=sri2006
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
 ```
 
 ### 3. Run Both Frontend and Backend Concurrently
