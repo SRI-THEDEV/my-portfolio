@@ -51,9 +51,9 @@ export default function ContactSection({ profile, onMessageSent }) {
           <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-violet-400 to-indigo-600 shadow-xl shadow-purple-600/40">
             <div className="w-full h-full rounded-full overflow-hidden bg-[#120f1e] relative">
               <img
-                src="/reference_portfolio.jpg"
+                src="/user_photo.jpg"
                 alt="Developer Avatar"
-                className="w-full h-full object-cover object-[80%_8%]"
+                className="w-full h-full object-cover object-[center_15%]"
               />
             </div>
             <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-purple-600 border-2 border-[#09080e] flex items-center justify-center text-white">
