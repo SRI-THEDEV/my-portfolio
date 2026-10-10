@@ -5,7 +5,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const resumeHref = resumeUrl || '/Sri_Nataraj_Resume.pdf';
+  const resumeHref = resumeUrl || '/Sri_Nataraj_Y_Resume.pdf';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,18 +39,18 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-mono-code tracking-wide">
+        <nav className="hidden md:flex items-center gap-7 text-xs font-mono-code tracking-wide">
           <a href="#services" className="text-gray-400 hover:text-purple-300 transition-colors">
             // 01. SERVICES
           </a>
           <a href="#projects" className="text-gray-400 hover:text-purple-300 transition-colors">
             // 02. PROJECTS
           </a>
-          <a href="#toolkit" className="text-gray-400 hover:text-purple-300 transition-colors">
-            // 03. TOOLKIT
+          <a href="#experience" className="text-gray-400 hover:text-purple-300 transition-colors">
+            // 03. EXPERIENCE
           </a>
-          <a href="#process" className="text-gray-400 hover:text-purple-300 transition-colors">
-            // 04. PROCESS
+          <a href="#toolkit" className="text-gray-400 hover:text-purple-300 transition-colors">
+            // 04. TOOLKIT
           </a>
           <a href="#contact" className="text-gray-400 hover:text-purple-300 transition-colors">
             // 05. CONTACT
@@ -62,7 +62,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
           {/* Resume Download CTA */}
           <a
             href={resumeHref}
-            download="Sri_Nataraj_Resume.pdf"
+            download="Sri_Nataraj_Y_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             title="Download Sri Nataraj's Resume (PDF)"
@@ -130,18 +130,18 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
             // 02. PROJECTS
           </a>
           <a 
+            href="#experience" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-gray-300 hover:text-purple-300"
+          >
+            // 03. EXPERIENCE
+          </a>
+          <a 
             href="#toolkit" 
             onClick={() => setMobileMenuOpen(false)}
             className="text-gray-300 hover:text-purple-300"
           >
-            // 03. TOOLKIT
-          </a>
-          <a 
-            href="#process" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-gray-300 hover:text-purple-300"
-          >
-            // 04. PROCESS
+            // 04. TOOLKIT
           </a>
           <a 
             href="#contact" 
@@ -168,7 +168,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onOpenAdminLogin, onOpenC
             )}
             <a
               href={resumeHref}
-              download="Sri_Nataraj_Resume.pdf"
+              download="Sri_Nataraj_Y_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               onClick={() => setMobileMenuOpen(false)}

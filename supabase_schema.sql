@@ -80,7 +80,7 @@ create table if not exists public.profile (
   "whatIDoDescription" text,
   "ctaText" jsonb default '{"title": "LET''S BUILD SOMETHING AMAZING TOGETHER.", "description": "I''m open to new opportunities and exciting collaborations."}'::jsonb,
   socials jsonb default '{}'::jsonb,
-  "resumeUrl" text default '/Sri_Nataraj_Resume.pdf',
+  "resumeUrl" text default '/Sri_Nataraj_Y_Resume.pdf',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
@@ -254,11 +254,11 @@ select
   'SRI NATARAJ Y • CODE • DEPLOY •',
   '+91 7639989629',
   'Thanjavur, Tamil Nadu',
-  'Motivated Computer Science graduate with strong proficiency in Python, JavaScript, and database management. Experienced in full-stack web development through hands-on internships and project work.',
-  'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy',
+  'Motivated Computer Science graduate proficient in Python, JavaScript, and database management. Experienced in full-stack web development through internships and hands-on projects. Combines strong problem-solving skills with modern developer tools to build scalable, efficient web applications. Seeking an entry-level Software Engineering role.',
+  'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy | CGPA: 6.6/10',
   '{"experience": "1+", "projectsDelivered": "15+", "happyClients": "10+", "technologies": "10+"}'::jsonb,
   'I design, build and ship modern websites and web applications that are fast, responsive and user-focused.',
   '{"title": "LET''S BUILD SOMETHING AMAZING TOGETHER.", "description": "I''m open to new opportunities and exciting collaborations."}'::jsonb,
   '{"github": "https://github.com/SRI-THEDEV", "linkedin": "https://www.linkedin.com/in/sri-nataraj2006", "twitter": "https://x.com/SRINATARAJ39", "email": "srinataraj39@gmail.com", "phone": "+91 7639989629", "location": "Thanjavur, Tamil Nadu"}'::jsonb,
-  '/Sri_Nataraj_Resume.pdf'
+  '/Sri_Nataraj_Y_Resume.pdf'
 where not exists (select 1 from public.profile limit 1);

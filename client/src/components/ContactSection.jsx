@@ -121,8 +121,8 @@ export default function ContactSection({ profile, onMessageSent, isAdmin, onOpen
           </div>
 
           <a
-            href={profile?.resumeUrl || '/Sri_Nataraj_Resume.pdf'}
-            download="Sri_Nataraj_Resume.pdf"
+            href={profile?.resumeUrl || '/Sri_Nataraj_Y_Resume.pdf'}
+            download="Sri_Nataraj_Y_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-purple-950/50 border border-purple-500/40 hover:border-purple-300 text-purple-200 hover:text-white text-xs font-mono-code transition-all hover:scale-105 shadow-sm"

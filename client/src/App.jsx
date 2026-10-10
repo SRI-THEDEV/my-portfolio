@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import WhatIDoSection from './components/WhatIDoSection.jsx';
 import FeaturedProjectsSection from './components/FeaturedProjectsSection.jsx';
+import ExperienceSection from './components/ExperienceSection.jsx';
 import BottomGridSection from './components/BottomGridSection.jsx';
 import ContactSection from './components/ContactSection.jsx';
 import ProjectModal from './components/ProjectModal.jsx';
@@ -158,6 +159,11 @@ export default function App() {
           isAdmin={isAdmin}
           onSelectProject={(proj) => setSelectedProject(proj)}
           onOpenAdmin={() => setAdminDrawerOpen(true)}
+        />
+
+        {/* Experience, Education & Credentials Section */}
+        <ExperienceSection
+          profile={profile}
         />
 
         {/* Bottom Grid: Toolkit + Work Process + CTA Card */}

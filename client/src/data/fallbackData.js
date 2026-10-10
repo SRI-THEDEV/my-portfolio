@@ -8,8 +8,8 @@ export const fallbackProfile = {
   badgeText: 'SRI NATARAJ Y • CODE • DEPLOY •',
   phone: '+91 7639989629',
   location: 'Thanjavur, Tamil Nadu',
-  summary: 'Motivated Computer Science graduate with strong proficiency in Python, JavaScript, and database management. Experienced in full-stack web development through hands-on internships and project work.',
-  education: 'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy',
+  summary: 'Motivated Computer Science graduate proficient in Python, JavaScript, and database management. Experienced in full-stack web development through internships and hands-on projects. Combines strong problem-solving skills with modern developer tools to build scalable, efficient web applications. Seeking an entry-level Software Engineering role.',
+  education: 'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy | CGPA: 6.6/10',
   stats: {
     experience: '1+',
     projectsDelivered: '15+',
@@ -29,7 +29,81 @@ export const fallbackProfile = {
     phone: '+91 7639989629',
     location: 'Thanjavur, Tamil Nadu'
   },
-  resumeUrl: '/Sri_Nataraj_Resume.pdf'
+  resumeUrl: '/Sri_Nataraj_Y_Resume.pdf',
+  experience: [
+    {
+      role: 'Web Development Intern',
+      company: 'The Arrowai',
+      type: 'Remote',
+      period: 'May 2025 – June 2025',
+      grade: 'Grade "A" Performance',
+      points: [
+        'Engineered responsive web interfaces using HTML5, CSS3, and JavaScript for seamless cross-browser consistency.',
+        'Developed Python-based backend REST API endpoints to streamline data workflows and feature integration.',
+        'Collaborated in an Agile team, earning an "A" performance grade for code quality, debugging, and timely delivery.'
+      ],
+      skills: ['Python', 'REST APIs', 'JavaScript', 'HTML5', 'CSS3', 'Agile']
+    }
+  ],
+  educationList: [
+    {
+      degree: 'B.Sc. Computer Science',
+      institution: 'SRM Trichy Arts and Science College, Trichy',
+      score: 'CGPA: 6.6/10',
+      period: 'College Degree',
+      badge: 'Undergraduate'
+    },
+    {
+      degree: 'HSC (Class XII)',
+      institution: 'Kamala Subramaniam Higher Secondary School',
+      score: '68%',
+      period: '2024',
+      badge: 'Higher Secondary'
+    },
+    {
+      degree: 'SSLC (Class X)',
+      institution: 'Maxwell Higher Secondary School',
+      score: '58%',
+      period: '2022',
+      badge: 'Secondary School'
+    }
+  ],
+  certifications: [
+    {
+      title: 'MongoDB Database Certification',
+      issuer: 'MongoDB',
+      tag: 'Database'
+    },
+    {
+      title: 'Artificial Intelligence Foundations',
+      issuer: 'IBM',
+      tag: 'AI & Data'
+    },
+    {
+      title: 'MS Excel Professional',
+      issuer: 'Simplilearn',
+      tag: 'Productivity'
+    },
+    {
+      title: 'Communication Skills',
+      issuer: 'Skill India',
+      tag: 'Professional'
+    }
+  ],
+  leadership: [
+    {
+      role: 'President',
+      org: 'Code Warriors Club',
+      desc: 'Spearheaded technical initiatives, organized intercollegiate coding competitions, and led programming workshops.'
+    },
+    {
+      role: 'Academic & Event Coordinator',
+      org: 'Technical Events & Hackathons',
+      desc: 'Organized hackathons, technical seminars, and campus wellness events to foster student engagement.'
+    }
+  ],
+  spokenLanguages: ['English', 'Tamil', 'Japanese'],
+  softSkills: ['Problem Solving', 'Critical Thinking', 'Team Collaboration', 'Communication', 'Adaptability']
 };
 
 export const fallbackProjects = [
@@ -124,18 +198,18 @@ export const fallbackServices = [
 ];
 
 export const fallbackToolkit = [
-  { name: 'HTML5', shortLabel: '5', category: 'frontend', iconKey: 'html5', level: 'Expert', order: 1 },
-  { name: 'CSS3', shortLabel: '3', category: 'frontend', iconKey: 'css3', level: 'Expert', order: 2 },
-  { name: 'JavaScript', shortLabel: 'JS', category: 'frontend', iconKey: 'javascript', level: 'Expert', order: 3 },
-  { name: 'TypeScript', shortLabel: 'TS', category: 'frontend', iconKey: 'typescript', level: 'Advanced', order: 4 },
-  { name: 'React', shortLabel: '⚛', category: 'frontend', iconKey: 'react', level: 'Expert', order: 5 },
-  { name: 'Next.js', shortLabel: 'N', category: 'frontend', iconKey: 'nextjs', level: 'Advanced', order: 6 },
-  { name: 'Tailwind CSS', shortLabel: '≋', category: 'frontend', iconKey: 'tailwind', level: 'Expert', order: 7 },
-  { name: 'Node.js', shortLabel: '⬢', category: 'backend', iconKey: 'nodejs', level: 'Expert', order: 8 },
+  { name: 'Python', shortLabel: 'PY', category: 'backend', iconKey: 'python', level: 'Expert', order: 1 },
+  { name: 'JavaScript', shortLabel: 'JS', category: 'frontend', iconKey: 'javascript', level: 'Expert', order: 2 },
+  { name: 'React', shortLabel: '⚛', category: 'frontend', iconKey: 'react', level: 'Expert', order: 3 },
+  { name: 'Node.js', shortLabel: '⬢', category: 'backend', iconKey: 'nodejs', level: 'Expert', order: 4 },
+  { name: 'MongoDB', shortLabel: '🍃', category: 'database', iconKey: 'mongodb', level: 'Expert', order: 5 },
+  { name: 'REST APIs', shortLabel: '{}', category: 'backend', iconKey: 'restapi', level: 'Expert', order: 6 },
+  { name: 'HTML5', shortLabel: '5', category: 'frontend', iconKey: 'html5', level: 'Expert', order: 7 },
+  { name: 'CSS3', shortLabel: '3', category: 'frontend', iconKey: 'css3', level: 'Expert', order: 8 },
   { name: 'Git & GitHub', shortLabel: '🐙', category: 'tools', iconKey: 'git', level: 'Advanced', order: 9 },
-  { name: 'Figma', shortLabel: '❖', category: 'design', iconKey: 'figma', level: 'Advanced', order: 10 },
-  { name: 'VS Code', shortLabel: '><', category: 'tools', iconKey: 'vscode', level: 'Expert', order: 11 },
-  { name: 'MongoDB', shortLabel: '🍃', category: 'database', iconKey: 'mongodb', level: 'Advanced', order: 12 }
+  { name: 'Linux', shortLabel: '🐧', category: 'tools', iconKey: 'linux', level: 'Advanced', order: 10 },
+  { name: 'Java', shortLabel: '☕', category: 'backend', iconKey: 'java', level: 'Proficient', order: 11 },
+  { name: 'C / C++', shortLabel: 'C++', category: 'backend', iconKey: 'cpp', level: 'Proficient', order: 12 }
 ];
 
 export const fallbackProcesses = [

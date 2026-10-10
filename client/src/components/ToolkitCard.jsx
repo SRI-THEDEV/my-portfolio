@@ -15,35 +15,40 @@ import {
 import { FigmaIcon } from './Icons.jsx';
 
 const techIcons = {
+  python: { label: 'PY', name: 'Python', icon: Terminal },
+  javascript: { label: 'JS', name: 'JavaScript', icon: FileCode2 },
+  react: { label: '⚛', name: 'React', icon: Atom },
+  nodejs: { label: '⬢', name: 'Node.js', icon: Server },
+  mongodb: { label: '🍃', name: 'MongoDB', icon: Database },
+  restapi: { label: '{}', name: 'REST APIs', icon: Boxes },
   html5: { label: '5', name: 'HTML5', icon: Code2 },
   css3: { label: '3', name: 'CSS3', icon: Layers },
-  javascript: { label: 'JS', name: 'JavaScript', icon: FileCode2 },
+  git: { label: '🐙', name: 'Git & GitHub', icon: GitBranch },
+  linux: { label: '🐧', name: 'Linux', icon: Terminal },
+  java: { label: '☕', name: 'Java', icon: Cpu },
+  cpp: { label: 'C++', name: 'C / C++', icon: Code2 },
   typescript: { label: 'TS', name: 'TypeScript', icon: Cpu },
-  react: { label: '⚛', name: 'React', icon: Atom },
   nextjs: { label: 'N', name: 'Next.js', icon: Boxes },
   tailwind: { label: '≋', name: 'Tailwind CSS', icon: Wind },
-  nodejs: { label: '⬢', name: 'Node.js', icon: Server },
-  git: { label: '🐙', name: 'Git & GitHub', icon: GitBranch },
   figma: { label: '❖', name: 'Figma', icon: FigmaIcon },
-  vscode: { label: '><', name: 'VS Code', icon: Terminal },
-  mongodb: { label: '🍃', name: 'MongoDB', icon: Database }
+  vscode: { label: '><', name: 'VS Code', icon: Terminal }
 };
 
 export default function ToolkitCard({ toolkit = [] }) {
-  // If database toolkit exists, map it; otherwise use full set of 12
+  // If database toolkit exists, map it; otherwise use full set matching resume
   const tools = toolkit.length > 0 ? toolkit : [
+    { name: 'Python', shortLabel: 'PY', iconKey: 'python' },
+    { name: 'JavaScript', shortLabel: 'JS', iconKey: 'javascript' },
+    { name: 'React', shortLabel: '⚛', iconKey: 'react' },
+    { name: 'Node.js', shortLabel: '⬢', iconKey: 'nodejs' },
+    { name: 'MongoDB', shortLabel: '🍃', iconKey: 'mongodb' },
+    { name: 'REST APIs', shortLabel: '{}', iconKey: 'restapi' },
     { name: 'HTML5', shortLabel: '5', iconKey: 'html5' },
     { name: 'CSS3', shortLabel: '3', iconKey: 'css3' },
-    { name: 'JavaScript', shortLabel: 'JS', iconKey: 'javascript' },
-    { name: 'TypeScript', shortLabel: 'TS', iconKey: 'typescript' },
-    { name: 'React', shortLabel: '⚛', iconKey: 'react' },
-    { name: 'Next.js', shortLabel: 'N', iconKey: 'nextjs' },
-    { name: 'Tailwind CSS', shortLabel: '≋', iconKey: 'tailwind' },
-    { name: 'Node.js', shortLabel: '⬢', iconKey: 'nodejs' },
     { name: 'Git & GitHub', shortLabel: '🐙', iconKey: 'git' },
-    { name: 'Figma', shortLabel: '❖', iconKey: 'figma' },
-    { name: 'VS Code', shortLabel: '><', iconKey: 'vscode' },
-    { name: 'MongoDB', shortLabel: '🍃', iconKey: 'mongodb' }
+    { name: 'Linux', shortLabel: '🐧', iconKey: 'linux' },
+    { name: 'Java', shortLabel: '☕', iconKey: 'java' },
+    { name: 'C / C++', shortLabel: 'C++', iconKey: 'cpp' }
   ];
 
   return (

@@ -47,7 +47,7 @@ export default function AdminDrawer({
     happyClients: profile?.stats?.happyClients || '10+',
     technologies: profile?.stats?.technologies || '10+'
   });
-  const [resumeUrlInput, setResumeUrlInput] = useState(profile?.resumeUrl || '/Sri_Nataraj_Resume.pdf');
+  const [resumeUrlInput, setResumeUrlInput] = useState(profile?.resumeUrl || '/Sri_Nataraj_Y_Resume.pdf');
   const [statsSaving, setStatsSaving] = useState(false);
 
   // Sync stats when profile prop updates
@@ -441,13 +441,13 @@ export default function AdminDrawer({
                     <span>Resume / CV Configuration</span>
                   </div>
                   <a
-                    href={resumeUrlInput || '/Sri_Nataraj_Resume.pdf'}
-                    download="Sri_Nataraj_Resume.pdf"
+                    href={resumeUrlInput || '/Sri_Nataraj_Y_Resume.pdf'}
+                    download="Sri_Nataraj_Y_Resume.pdf"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 border border-purple-500/30 text-[11px] font-mono-code text-purple-200 transition-colors"
                   >
-                    <FileDown className="w-3 h-3 text-purple-400" />
+                    <FileDown className="w-3.5 h-3.5 text-purple-400" />
                     <span>Download Test</span>
                   </a>
                 </div>
@@ -455,17 +455,17 @@ export default function AdminDrawer({
                 <div>
                   <label className="block text-xs font-mono-code text-gray-300 uppercase tracking-wide mb-1.5 flex items-center justify-between">
                     <span>Resume File Path / External Link</span>
-                    <span className="text-[10px] text-purple-400 font-mono">e.g. /Sri_Nataraj_Resume.pdf or URL</span>
+                    <span className="text-[10px] text-purple-400 font-mono">e.g. /Sri_Nataraj_Y_Resume.pdf or URL</span>
                   </label>
                   <input
                     type="text"
                     value={resumeUrlInput}
                     onChange={(e) => setResumeUrlInput(e.target.value)}
-                    placeholder="/Sri_Nataraj_Resume.pdf"
+                    placeholder="/Sri_Nataraj_Y_Resume.pdf"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-[#161224] border border-purple-500/25 focus:border-purple-400 focus:outline-none text-white text-xs font-mono-code transition-colors"
                   />
                   <p className="text-[10px] text-gray-400 font-mono-code mt-1">
-                    Default bundled resume file is stored at <span className="text-purple-300">/Sri_Nataraj_Resume.pdf</span>.
+                    Default bundled resume file is stored at <span className="text-purple-300">/Sri_Nataraj_Y_Resume.pdf</span>.
                   </p>
                 </div>
               </div>
