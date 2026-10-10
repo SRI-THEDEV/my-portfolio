@@ -34,3 +34,5 @@ connectDB()
     console.log(`[Server] Starting on port ${PORT} without active MongoDB connection...`);
     startServer();
   });
+
+export default app;
