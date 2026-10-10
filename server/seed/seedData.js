@@ -141,17 +141,21 @@ export const initialProcesses = [
 ];
 
 export const initialProfile = {
-  name: 'Creative Developer',
+  name: 'SRI NATARAJ Y',
   role: 'CREATIVE DEVELOPER',
   headline: 'I DESIGN & CODE DIGITAL EXPERIENCES THAT INSPIRE.',
   tagline: '</ CODE. DESIGN. DEPLOY />',
   availableForProjects: true,
-  badgeInitials: 'CD',
-  badgeText: 'CREATIVE DEVELOPER • CODE • DEPLOY •',
+  badgeInitials: 'SN',
+  badgeText: 'SRI NATARAJ Y • CODE • DEPLOY •',
+  phone: '+91 7639989629',
+  location: 'Thanjavur, Tamil Nadu',
+  summary: 'Motivated Computer Science graduate with strong proficiency in Python, JavaScript, and database management. Experienced in full-stack web development through hands-on internships and project work.',
+  education: 'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy',
   stats: {
-    experience: '4+',
-    projectsDelivered: '40+',
-    happyClients: '25+',
+    experience: '1+',
+    projectsDelivered: '15+',
+    happyClients: '10+',
     technologies: '10+'
   },
   whatIDoDescription: 'I design, build and ship modern websites and web applications that are fast, responsive and user-focused.',
@@ -160,10 +164,12 @@ export const initialProfile = {
     description: "I'm open to new opportunities and exciting collaborations."
   },
   socials: {
-    github: 'https://github.com',
+    github: 'https://github.com/SRI-THEDEV',
     linkedin: 'https://linkedin.com',
     twitter: 'https://twitter.com',
-    email: 'hello@creativedeveloper.dev'
+    email: 'srinataraj39@gmail.com',
+    phone: '+91 7639989629',
+    location: 'Thanjavur, Tamil Nadu'
   }
 };
 

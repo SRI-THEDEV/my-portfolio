@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const profileSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: 'Creative Developer'
+    default: 'SRI NATARAJ Y'
   },
   role: {
     type: String,
@@ -23,16 +23,32 @@ const profileSchema = new mongoose.Schema({
   },
   badgeInitials: {
     type: String,
-    default: 'CD'
+    default: 'SN'
   },
   badgeText: {
     type: String,
-    default: 'CREATIVE DEVELOPER • CODE • DEPLOY •'
+    default: 'SRI NATARAJ Y • CODE • DEPLOY •'
+  },
+  phone: {
+    type: String,
+    default: '+91 7639989629'
+  },
+  location: {
+    type: String,
+    default: 'Thanjavur, Tamil Nadu'
+  },
+  summary: {
+    type: String,
+    default: 'Motivated Computer Science graduate with strong proficiency in Python, JavaScript, and database management. Experienced in full-stack web development through hands-on internships and project work.'
+  },
+  education: {
+    type: String,
+    default: 'B.Sc. Computer Science — SRM Trichy Arts and Science College, Trichy'
   },
   stats: {
-    experience: { type: String, default: '4+' },
-    projectsDelivered: { type: String, default: '40+' },
-    happyClients: { type: String, default: '25+' },
+    experience: { type: String, default: '1+' },
+    projectsDelivered: { type: String, default: '15+' },
+    happyClients: { type: String, default: '10+' },
     technologies: { type: String, default: '10+' }
   },
   whatIDoDescription: {
@@ -44,10 +60,12 @@ const profileSchema = new mongoose.Schema({
     description: { type: String, default: "I'm open to new opportunities and exciting collaborations." }
   },
   socials: {
-    github: { type: String, default: 'https://github.com' },
+    github: { type: String, default: 'https://github.com/SRI-THEDEV' },
     linkedin: { type: String, default: 'https://linkedin.com' },
     twitter: { type: String, default: 'https://twitter.com' },
-    email: { type: String, default: 'developer@example.com' }
+    email: { type: String, default: 'srinataraj39@gmail.com' },
+    phone: { type: String, default: '+91 7639989629' },
+    location: { type: String, default: 'Thanjavur, Tamil Nadu' }
   }
 }, {
   timestamps: true

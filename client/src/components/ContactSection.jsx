@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles, Mail, MessageSquare, User, AtSign, Phone, MapPin } from 'lucide-react';
 import { sendContactMessage } from '../services/api.js';
 
 export default function ContactSection({ profile, onMessageSent }) {
@@ -42,7 +42,7 @@ export default function ContactSection({ profile, onMessageSent }) {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Connecting Header matching reference: CONTACT • Avatar Circle • LET'S CONNECT */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 mb-14">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 mb-10">
           <span className="font-syne font-black text-2xl sm:text-4xl text-purple-300 tracking-wider uppercase">
             CONTACT
           </span>
@@ -52,7 +52,7 @@ export default function ContactSection({ profile, onMessageSent }) {
             <div className="w-full h-full rounded-full overflow-hidden bg-[#120f1e] relative">
               <img
                 src="/user_photo.jpg"
-                alt="Developer Avatar"
+                alt="Sri Nataraj Y Avatar"
                 className="w-full h-full object-cover object-[center_15%]"
               />
             </div>
@@ -66,6 +66,30 @@ export default function ContactSection({ profile, onMessageSent }) {
           </span>
         </div>
 
+        {/* Quick Personal Contact Info Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
+          <a
+            href="mailto:srinataraj39@gmail.com"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 hover:border-purple-400 text-purple-200 text-xs font-mono-code transition-all hover:scale-105"
+          >
+            <Mail className="w-3.5 h-3.5 text-purple-400" />
+            <span>srinataraj39@gmail.com</span>
+          </a>
+
+          <a
+            href="tel:+917639989629"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 hover:border-purple-400 text-purple-200 text-xs font-mono-code transition-all hover:scale-105"
+          >
+            <Phone className="w-3.5 h-3.5 text-purple-400" />
+            <span>+91 7639989629</span>
+          </a>
+
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#151222] border border-purple-500/20 text-gray-300 text-xs font-mono-code">
+            <MapPin className="w-3.5 h-3.5 text-purple-400" />
+            <span>Thanjavur, Tamil Nadu</span>
+          </div>
+        </div>
+
         {/* Contact Form Glass Card */}
         <div className="bg-[#12101c]/90 border border-purple-500/20 rounded-3xl p-8 sm:p-12 shadow-2xl shadow-purple-950/30 text-left relative overflow-hidden">
           
@@ -73,8 +97,11 @@ export default function ContactSection({ profile, onMessageSent }) {
 
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
+              <h3 className="font-syne font-bold text-xl text-white mb-2">
+                Send Sri Nataraj a Message
+              </h3>
               <p className="text-gray-400 text-sm">
-                Have a project idea, inquiry, or partnership opportunity? Drop a note below and it will be stored directly into our MongoDB database!
+                Have a project idea, software opportunity, or collaboration in mind? Drop a message below and it will be stored directly into our MongoDB database!
               </p>
             </div>
 
@@ -82,7 +109,7 @@ export default function ContactSection({ profile, onMessageSent }) {
             {status.success && (
               <div className="mb-6 p-4 rounded-xl bg-purple-950/70 border border-purple-500/50 flex items-center gap-3 text-purple-200 text-xs sm:text-sm animate-fade-in">
                 <CheckCircle2 className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                <span>Message sent and logged directly into MongoDB! I'll get back to you shortly.</span>
+                <span>Thank you! Your message has been saved into MongoDB. Sri Nataraj will get back to you soon.</span>
               </div>
             )}
 
@@ -146,7 +173,7 @@ export default function ContactSection({ profile, onMessageSent }) {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="MERN Stack Application Development"
+                    placeholder="Full Stack Web Development Project"
                     className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#171324] border border-purple-500/20 focus:border-purple-400 focus:outline-none text-white text-sm placeholder-gray-500 transition-colors"
                   />
                 </div>
@@ -199,21 +226,21 @@ export default function ContactSection({ profile, onMessageSent }) {
         {/* Footer info & Social Links */}
         <div className="mt-16 pt-8 border-t border-purple-500/15 flex flex-col sm:flex-row items-center justify-between text-xs font-mono-code text-gray-400 gap-4">
           <div>
-            &copy; {new Date().getFullYear()} CREATIVE DEVELOPER. Built with React 19, Node.js, Express & MongoDB.
+            &copy; {new Date().getFullYear()} SRI NATARAJ Y. Built with React 19, Node.js, Express & MongoDB.
           </div>
           <div className="flex items-center gap-6 text-purple-300">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+            <a href="https://github.com/SRI-THEDEV" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
               GitHub
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-              LinkedIn
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-              Twitter
-            </a>
-            <a href="mailto:hello@creativedeveloper.dev" className="hover:text-white transition-colors">
+            <a href="mailto:srinataraj39@gmail.com" className="hover:text-white transition-colors">
               Email
             </a>
+            <a href="tel:+917639989629" className="hover:text-white transition-colors">
+              Phone
+            </a>
+            <span className="text-gray-500">
+              Thanjavur, Tamil Nadu
+            </span>
           </div>
         </div>
 

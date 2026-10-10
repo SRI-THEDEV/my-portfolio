@@ -150,14 +150,14 @@ export default function HeroSection({ profile, onOpenContact }) {
                   />
                   <text className="text-[9px] font-mono-code tracking-[3px] fill-purple-300 uppercase">
                     <textPath href="#circlePath" startOffset="0%">
-                      • CREATIVE DEVELOPER • CODE • DEPLOY 
+                      • SRI NATARAJ Y • FULL STACK DEV • 
                     </textPath>
                   </text>
                 </svg>
 
-                {/* Center CD Badge */}
+                {/* Center SN Badge */}
                 <div className="absolute w-12 h-12 rounded-full bg-gradient-to-tr from-purple-800 to-indigo-600 border border-purple-400/50 flex items-center justify-center font-syne font-black text-sm text-white shadow-lg shadow-purple-600/40">
-                  CD
+                  SN
                 </div>
               </div>
             </div>

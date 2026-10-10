@@ -24,14 +24,14 @@ export default function Navbar({ onOpenAdmin, onOpenContact, dbStatus }) {
         {/* Brand / Logo */}
         <a href="#hero" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-700 to-violet-500 flex items-center justify-center font-syne font-bold text-white shadow-md shadow-purple-600/30 group-hover:scale-105 transition-transform">
-            CD
+            SN
           </div>
           <div className="flex flex-col text-left">
             <span className="font-syne font-bold text-sm tracking-wider text-white group-hover:text-purple-300 transition-colors">
-              CREATIVE DEVELOPER
+              SRI NATARAJ Y
             </span>
             <span className="text-[10px] font-mono-code text-purple-400/80 tracking-tight">
-              &lt;/ MERN STACK &gt;
+              &lt;/ FULL STACK DEVELOPER &gt;
             </span>
           </div>
         </a>
