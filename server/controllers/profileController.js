@@ -18,7 +18,14 @@ export const getProfile = async (req, res) => {
 
       if (error) throw error;
       if (data) {
-        return res.status(200).json({ success: true, data: formatRecord(data) });
+        const formatted = formatRecord(data);
+        if (!formatted.resumeUrl && formatted.socials?.resumeUrl) {
+          formatted.resumeUrl = formatted.socials.resumeUrl;
+        }
+        if (!formatted.resumeUrl) {
+          formatted.resumeUrl = '/Sri_Nataraj_Y_Resume.pdf';
+        }
+        return res.status(200).json({ success: true, data: formatted });
       }
     }
 
@@ -34,7 +41,7 @@ export const updateProfile = async (req, res) => {
     if (isSupabaseConfigured() && supabase) {
       const { data: existing } = await supabase
         .from('profile')
-        .select('id, stats')
+        .select('id, stats, socials')
         .limit(1)
         .maybeSingle();
 
@@ -48,25 +55,73 @@ export const updateProfile = async (req, res) => {
 
       let result;
       if (existing) {
-        const { data, error } = await supabase
+        let { data, error } = await supabase
           .from('profile')
           .update(updatePayload)
           .eq('id', existing.id)
           .select()
           .single();
+
+        // If Supabase schema cache does not have 'resumeUrl' column yet, fallback to socials jsonb
+        if (error && (error.message?.includes('resumeUrl') || error.code === 'PGRST204')) {
+          console.warn('[Supabase updateProfile] resumeUrl column missing, falling back to socials.resumeUrl:', error.message);
+          const resumeVal = updatePayload.resumeUrl;
+          delete updatePayload.resumeUrl;
+          updatePayload.socials = {
+            ...(existing.socials || {}),
+            ...(updatePayload.socials || {}),
+            resumeUrl: resumeVal
+          };
+
+          const retry = await supabase
+            .from('profile')
+            .update(updatePayload)
+            .eq('id', existing.id)
+            .select()
+            .single();
+
+          if (retry.error) throw retry.error;
+          data = retry.data;
+          error = null;
+        }
+
         if (error) throw error;
         result = data;
       } else {
-        const { data, error } = await supabase
+        let { data, error } = await supabase
           .from('profile')
           .insert([updatePayload])
           .select()
           .single();
+
+        if (error && (error.message?.includes('resumeUrl') || error.code === 'PGRST204')) {
+          const resumeVal = updatePayload.resumeUrl;
+          delete updatePayload.resumeUrl;
+          updatePayload.socials = {
+            ...(updatePayload.socials || {}),
+            resumeUrl: resumeVal
+          };
+
+          const retry = await supabase
+            .from('profile')
+            .insert([updatePayload])
+            .select()
+            .single();
+
+          if (retry.error) throw retry.error;
+          data = retry.data;
+          error = null;
+        }
+
         if (error) throw error;
         result = data;
       }
 
-      return res.status(200).json({ success: true, data: formatRecord(result) });
+      const formatted = formatRecord(result);
+      if (!formatted.resumeUrl && formatted.socials?.resumeUrl) {
+        formatted.resumeUrl = formatted.socials.resumeUrl;
+      }
+      return res.status(200).json({ success: true, data: formatted });
     }
 
     // Local fallback

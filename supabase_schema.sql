@@ -84,6 +84,9 @@ create table if not exists public.profile (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
+-- Ensure column exists if profile table was created previously:
+alter table public.profile add column if not exists "resumeUrl" text default '/Sri_Nataraj_Y_Resume.pdf';
+
 -- Messages Table (Contact Inquiries)
 create table if not exists public.messages (
   id uuid default gen_random_uuid() primary key,
