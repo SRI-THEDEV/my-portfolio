@@ -87,10 +87,14 @@ export const getMessages = async (req, res) => {
   }
 };
 
+const isUuid = (str) => {
+  return typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+};
+
 export const markAsRead = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isSupabaseConfigured() && supabase) {
+    if (isSupabaseConfigured() && supabase && isUuid(id)) {
       const { data, error } = await supabase
         .from('messages')
         .update({ is_read: true })
@@ -116,18 +120,17 @@ export const markAsRead = async (req, res) => {
 export const deleteMessage = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isSupabaseConfigured() && supabase) {
+    if (isSupabaseConfigured() && supabase && isUuid(id)) {
       const { error } = await supabase
         .from('messages')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
-      return res.status(200).json({ success: true, message: 'Message removed' });
     }
 
     memoryMessages = memoryMessages.filter(m => m.id !== id && m._id !== id);
-    res.status(200).json({ success: true, message: 'Message removed' });
+    return res.status(200).json({ success: true, message: 'Message removed' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

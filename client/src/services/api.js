@@ -89,7 +89,10 @@ export const deleteProject = async (id) => {
     method: 'DELETE',
     headers: getAdminHeaders()
   });
-  if (!res.ok) throw new Error('Failed to delete project');
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.message || 'Failed to delete project');
+  }
   return await res.json();
 };
 
@@ -146,7 +149,10 @@ export const fetchMessages = async () => {
   const res = await fetch(`${API_BASE}/messages`, {
     headers: getAdminHeaders()
   });
-  if (!res.ok) throw new Error('Failed to fetch messages');
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.message || 'Failed to fetch messages');
+  }
   const json = await res.json();
   return json.data || [];
 };
@@ -156,7 +162,10 @@ export const deleteMessage = async (id) => {
     method: 'DELETE',
     headers: getAdminHeaders()
   });
-  if (!res.ok) throw new Error('Failed to delete message');
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.message || 'Failed to delete message');
+  }
   return await res.json();
 };
 

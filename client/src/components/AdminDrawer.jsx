@@ -133,22 +133,24 @@ export default function AdminDrawer({
   }, [isOpen]);
 
   const handleDeleteMessage = async (id) => {
+    if (!id) return;
     try {
       await deleteMessage(id);
-      setMessages(prev => prev.filter(m => m._id !== id));
-      setActionNotice('Message removed from MongoDB');
+      setMessages(prev => prev.filter(m => (m._id || m.id) !== id));
+      setActionNotice('Message removed');
       setTimeout(() => setActionNotice(null), 3000);
     } catch (err) {
-      alert('Failed to delete: ' + err.message);
+      alert('Failed to delete message: ' + err.message);
     }
   };
 
   const handleDeleteProject = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this project from MongoDB?')) return;
+    if (!id) return;
+    if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
       await deleteProject(id);
       if (onProjectDeleted) onProjectDeleted(id);
-      setActionNotice('Project deleted from MongoDB');
+      setActionNotice('Project deleted successfully');
       setTimeout(() => setActionNotice(null), 3000);
     } catch (err) {
       alert('Failed to delete project: ' + err.message);
@@ -519,8 +521,8 @@ export default function AdminDrawer({
                           {new Date(msg.createdAt).toLocaleDateString()}
                         </span>
                         <button
-                          onClick={() => handleDeleteMessage(msg._id)}
-                          title="Delete from MongoDB"
+                          onClick={() => handleDeleteMessage(msg._id || msg.id)}
+                          title="Delete message"
                           className="p-1 rounded hover:bg-red-950 text-gray-400 hover:text-red-400 transition-colors"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -544,36 +546,39 @@ export default function AdminDrawer({
           {/* TAB: PROJECTS LIST */}
           {activeTab === 'projects' && (
             <div className="space-y-4">
-              {(projects || []).map((proj) => (
-                <div
-                  key={proj._id}
-                  className="p-4 rounded-xl bg-[#151222] border border-purple-500/15 flex items-center justify-between"
-                >
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono-code text-[11px] text-purple-400">
-                        {proj.number}
-                      </span>
-                      <span className="font-syne font-bold text-sm text-white">
-                        {proj.title}
-                      </span>
+              {(projects || []).map((proj) => {
+                const projId = proj._id || proj.id;
+                return (
+                  <div
+                    key={projId}
+                    className="p-4 rounded-xl bg-[#151222] border border-purple-500/15 flex items-center justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono-code text-[11px] text-purple-400">
+                          {proj.number}
+                        </span>
+                        <span className="font-syne font-bold text-sm text-white">
+                          {proj.title}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-400 font-mono-code mt-0.5">
+                        {proj.category}
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-400 font-mono-code mt-0.5">
-                      {proj.category}
-                    </div>
-                  </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleDeleteProject(proj._id)}
-                      title="Delete from MongoDB"
-                      className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/20 text-xs"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleDeleteProject(projId)}
+                        title="Delete project"
+                        className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/20 text-xs transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 

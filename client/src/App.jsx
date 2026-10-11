@@ -72,7 +72,15 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isAdmin]);
 
-  // Fetch initial data from Express + MongoDB backend
+  const getDeletedProjectIds = () => {
+    try {
+      return JSON.parse(localStorage.getItem('eportfolio_deleted_projects') || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  // Fetch initial data from Express + Supabase backend
   useEffect(() => {
     const initData = async () => {
       try {
@@ -85,8 +93,13 @@ export default function App() {
           checkHealth()
         ]);
 
+        const deletedIds = getDeletedProjectIds();
         if (profData) setProfile(profData);
-        if (projsData && projsData.length > 0) setProjects(projsData);
+        if (projsData && projsData.length > 0) {
+          setProjects(projsData.filter(p => !deletedIds.includes(p._id) && !deletedIds.includes(p.id)));
+        } else {
+          setProjects(prev => prev.filter(p => !deletedIds.includes(p._id) && !deletedIds.includes(p.id)));
+        }
         if (servsData && servsData.length > 0) setServices(servsData);
         if (toolsData && toolsData.length > 0) setToolkit(toolsData);
         if (procsData && procsData.length > 0) setProcesses(procsData);
@@ -107,12 +120,19 @@ export default function App() {
   };
 
   const handleProjectCreated = (newProj) => {
+    const deletedIds = getDeletedProjectIds();
+    const updated = deletedIds.filter(id => id !== newProj._id && id !== newProj.id);
+    localStorage.setItem('eportfolio_deleted_projects', JSON.stringify(updated));
     setProjects(prev => [...prev, newProj]);
   };
 
   const handleProjectDeleted = (id) => {
-    setProjects(prev => prev.filter(p => p._id !== id));
-    if (selectedProject?._id === id) setSelectedProject(null);
+    const deletedIds = getDeletedProjectIds();
+    if (!deletedIds.includes(id)) {
+      localStorage.setItem('eportfolio_deleted_projects', JSON.stringify([...deletedIds, id]));
+    }
+    setProjects(prev => prev.filter(p => p._id !== id && p.id !== id));
+    if (selectedProject?._id === id || selectedProject?.id === id) setSelectedProject(null);
   };
 
   const handleLogout = () => {

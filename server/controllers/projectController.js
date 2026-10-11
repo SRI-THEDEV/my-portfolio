@@ -8,6 +8,10 @@ let memoryProjects = [...initialProjects].map((p, idx) => ({
   _id: `local-proj-${idx + 1}`
 }));
 
+const isUuid = (str) => {
+  return typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+};
+
 export const getProjects = async (req, res) => {
   try {
     if (isSupabaseConfigured() && supabase) {
@@ -46,7 +50,7 @@ export const getProjects = async (req, res) => {
 export const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isSupabaseConfigured() && supabase) {
+    if (isSupabaseConfigured() && supabase && isUuid(id)) {
       const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -107,7 +111,7 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isSupabaseConfigured() && supabase) {
+    if (isSupabaseConfigured() && supabase && isUuid(id)) {
       const { data, error } = await supabase
         .from('projects')
         .update(req.body)
@@ -133,18 +137,17 @@ export const updateProject = async (req, res) => {
 export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isSupabaseConfigured() && supabase) {
+    if (isSupabaseConfigured() && supabase && isUuid(id)) {
       const { error } = await supabase
         .from('projects')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
-      return res.status(200).json({ success: true, message: 'Project deleted successfully' });
     }
 
     memoryProjects = memoryProjects.filter(p => p.id !== id && p._id !== id);
-    res.status(200).json({ success: true, message: 'Project deleted successfully' });
+    return res.status(200).json({ success: true, message: 'Project deleted successfully' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
